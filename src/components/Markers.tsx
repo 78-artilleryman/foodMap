@@ -3,15 +3,15 @@ import { Dispatch, SetStateAction } from 'react';
 
 interface MarkersProps {
   map: any;
-  storeDatas: any[];
+  stores: any[];
   setCurrentStore: Dispatch<SetStateAction<any>>;
 }
 
-function Markers({ map, storeDatas, setCurrentStore }: MarkersProps) {
+function Markers({ map, stores, setCurrentStore }: MarkersProps) {
   const loadKakaoMarkers = useCallback(() => {
     if (map) {
       //식당 데이터 마커 기능
-      storeDatas?.map(store => {
+      stores?.map(store => {
         const imageSrc = store?.bizcnd_code_nm
           ? `/images/markers/${store?.bizcnd_code_nm}.png`
           : `/images/markers/default.png`; // 마커 이미지 주소
@@ -57,7 +57,7 @@ function Markers({ map, storeDatas, setCurrentStore }: MarkersProps) {
         });
       });
     }
-  }, [map, setCurrentStore, storeDatas]);
+  }, [map, setCurrentStore, stores]);
 
   useEffect(() => {
     loadKakaoMarkers();
