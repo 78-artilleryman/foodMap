@@ -1,9 +1,10 @@
+import { StoreType } from '@/interface';
 import React, { useCallback, useEffect } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
 interface MarkersProps {
   map: any;
-  stores: any[];
+  stores: StoreType[];
   setCurrentStore: Dispatch<SetStateAction<any>>;
 }
 
@@ -12,16 +13,14 @@ function Markers({ map, stores, setCurrentStore }: MarkersProps) {
     if (map) {
       //식당 데이터 마커 기능
       stores?.map(store => {
-        const imageSrc = store?.bizcnd_code_nm
-          ? `/images/markers/${store?.bizcnd_code_nm}.png`
-          : `/images/markers/default.png`; // 마커 이미지 주소
+        const imageSrc = store?.category ? `/images/markers/${store?.category}.png` : `/images/markers/default.png`; // 마커 이미지 주소
         const imageSize = new window.kakao.maps.Size(40, 40); // 마커 이미지 사이즈
         const imageOption = { offset: new window.kakao.maps.Point(27, 69) };
 
         const marketImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
         // 마커 위치
-        const markerPosition = new window.kakao.maps.LatLng(store?.y_dnts, store?.x_cnts);
+        const markerPosition = new window.kakao.maps.LatLng(store?.lat, store?.lag);
 
         // 마커 생성
         const marker = new window.kakao.maps.Marker({
@@ -32,7 +31,7 @@ function Markers({ map, stores, setCurrentStore }: MarkersProps) {
         marker.setMap(map);
 
         // 마커 커서가 오버되었을 때 마커 위에 표시할 윈포윈도우 생성
-        const content = `<div class="infowindow">${store?.upso_nm}</div>`; //인포윈도우에 표실될 내용
+        const content = `<div class="infowindow">${store?.name}</div>`; //인포윈도우에 표실될 내용
 
         const customOverlay = new window.kakao.maps.CustomOverlay({
           position: markerPosition,

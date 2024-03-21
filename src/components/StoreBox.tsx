@@ -2,9 +2,10 @@ import React, { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 import { AiOutlineClose, AiOutlineInfoCircle, AiOutlineCheck, AiOutlinePhone } from 'react-icons/ai';
 import { HiOutlineMapPin } from 'react-icons/hi2';
+import { StoreType } from '@/interface';
 
 interface StoreBoxProps {
-  store: any;
+  store: StoreType | null;
   setStore: Dispatch<SetStateAction<any>>;
 }
 
@@ -17,18 +18,14 @@ function StoreBox({ store, setStore }: StoreBoxProps) {
             <div className="flex justify-between items-start">
               <div className="flex gap-4 items-center">
                 <Image
-                  src={
-                    store?.bizcnd_code_nm
-                      ? `/images/markers/${store?.bizcnd_code_nm}.png`
-                      : `/images/markers/default.png`
-                  }
+                  src={store?.category ? `/images/markers/${store?.category}.png` : `/images/markers/default.png`}
                   width={40}
                   height={40}
                   alt="marker icon"
                 ></Image>
                 <div>
-                  <div className="font-semibold">{store?.upso_nm}</div>
-                  <div className="text-sm">{store?.cob_code_nm}</div>
+                  <div className="font-semibold">{store?.name}</div>
+                  <div className="text-sm">{store?.stroeType}</div>
                 </div>
               </div>
               <button type="button" onClick={() => setStore(null)}>
@@ -37,19 +34,19 @@ function StoreBox({ store, setStore }: StoreBoxProps) {
             </div>
             <div className="mt-2 flex gap-2 items-center">
               <HiOutlineMapPin />
-              {store?.rdn_code_nm}
+              {store?.address}
             </div>
             <div className="mt-2 flex gap-2 items-center">
               <AiOutlinePhone />
-              {store?.tel_no}
+              {store?.phone}
             </div>
             <div className="mt-2 flex gap-2 items-center">
               <AiOutlineInfoCircle />
-              {store?.crtfc_gbn_nm}
+              {store?.stroeType}
             </div>
             <div className="mt-2 flex gap-2 items-center">
               <AiOutlineCheck />
-              {store?.bizcnd_code_nm}
+              {store?.category}
             </div>
           </div>
           <button
