@@ -1,9 +1,9 @@
 import { StoreType } from '@/interface';
 import Image from 'next/image';
 import React from 'react';
+import axios from 'axios';
 
 function StoreListPage({ stores }: { stores: StoreType[] }) {
-  console.log(stores);
   return (
     <div className="px-4 md:max-w-4xl mx-auto py-8">
       <ul role="list" className="divide-y divide-gray-100">
@@ -37,9 +37,9 @@ function StoreListPage({ stores }: { stores: StoreType[] }) {
 export default StoreListPage;
 
 export async function getServerSideProps() {
-  const stores = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/stores`).then(res => res.json());
+  const stores = await axios(`${process.env.NEXT_PUBLIC_API_URL}/api/stores`);
 
   return {
-    props: { stores },
+    props: { stores: stores.data },
   };
 }
