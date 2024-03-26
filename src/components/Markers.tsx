@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 interface MarkersProps {
   map: any;
-  stores: StoreApiResponse;
+  stores: StoreType[];
   setCurrentStore: Dispatch<SetStateAction<any>>;
 }
 
@@ -12,7 +12,7 @@ function Markers({ map, stores, setCurrentStore }: MarkersProps) {
   const loadKakaoMarkers = useCallback(() => {
     if (map) {
       //식당 데이터 마커 기능
-      stores?.data?.map(store => {
+      stores?.map(store => {
         const imageSrc = store?.category ? `/images/markers/${store?.category}.png` : `/images/markers/default.png`; // 마커 이미지 주소
         const imageSize = new window.kakao.maps.Size(40, 40); // 마커 이미지 사이즈
         const imageOption = { offset: new window.kakao.maps.Point(27, 69) };
