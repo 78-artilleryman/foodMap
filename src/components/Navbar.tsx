@@ -18,10 +18,10 @@ function Navbar() {
           <Link className="navbar__list--item" href="/stores/new">
             맛집 등록
           </Link>
-          <Link className="navbar__list--item" href="/stores/likes">
+          <Link className="navbar__list--item" href="/users/likes">
             찜한 가게
           </Link>
-          <Link className="navbar__list--item" href="/users/login">
+          <Link className="navbar__list--item" href="/api/auth/signin">
             로그인
           </Link>
         </div>
@@ -39,10 +39,10 @@ function Navbar() {
             <Link className="navbar__list--item--mobile" href="/stores/new">
               맛집 등록
             </Link>
-            <Link className="navbar__list--item--mobile" href="/stores/likes">
+            <Link className="navbar__list--item--mobile" href="/users/likes">
               찜한 가게
             </Link>
-            <Link className="navbar__list--item--mobile" href="/users/login">
+            <Link className="navbar__list--item--mobile" href="/api/auth/signin">
               로그인
             </Link>
           </div>
