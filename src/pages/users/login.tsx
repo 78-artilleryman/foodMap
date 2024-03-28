@@ -6,7 +6,7 @@ import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
 function LoginPage() {
-  const { status } = useSession();
+  const { status, data: sa } = useSession();
   const router = useRouter();
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function LoginPage() {
           <button
             type="button"
             className="text-white flex gap-3  bg-[#4285f4] hover:bg-[#4285f4]/90 font-medium rounded-lg w-full px-5 py-4 text-center items-center justify-center"
-            onClick={() => signIn('google')}
+            onClick={() => signIn('google', { callbackUrl: '/' })}
           >
             <AiOutlineGoogle className="w-6 h-6" />
             Sign in with Google
@@ -35,7 +35,7 @@ function LoginPage() {
           <button
             type="button"
             className="text-white flex gap-4  bg-[#2db400] hover:bg-[#2db400]/90 font-medium rounded-lg w-full px-5 py-4 text-center items-center justify-center"
-            onClick={() => signIn('naver')}
+            onClick={() => signIn('naver', { callbackUrl: '/' })}
           >
             <SiNaver className="w-4 h-4" />
             Sign in with Naver
@@ -43,7 +43,7 @@ function LoginPage() {
           <button
             type="button"
             className="text-black flex gap-3  bg-[#fef01b] hover:bg-[#fef01b]/90 font-medium rounded-lg w-full px-5 py-4 text-center items-center justify-center"
-            onClick={() => signIn('kakao')}
+            onClick={() => signIn('kakao', { callbackUrl: '/' })}
           >
             <RiKakaoTalkFill className="w-6 h-6" />
             Sign in with KaKao
