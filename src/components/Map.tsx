@@ -5,6 +5,9 @@ import { Dispatch, SetStateAction } from 'react';
 
 interface MapProps {
   setMap: Dispatch<SetStateAction<any>>;
+  lat?: string | null;
+  lng?: string | null;
+  zoom?: number;
 }
 
 declare global {
@@ -16,13 +19,15 @@ declare global {
 const DEFAULT_LAT = 37.497625203;
 const DEFAULT_LNG = 127.03088379;
 
-function Map({ setMap }: MapProps) {
+const DEFAULT_ZOOM = 3;
+
+function Map({ setMap, lat, lng, zoom }: MapProps) {
   const loadKakaMap = () => {
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById('map');
       const mapOption = {
-        center: new window.kakao.maps.LatLng(DEFAULT_LAT, DEFAULT_LNG),
-        level: 3,
+        center: new window.kakao.maps.LatLng(lat ?? DEFAULT_LAT, lng ?? DEFAULT_LNG),
+        level: zoom ?? DEFAULT_ZOOM,
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
 
