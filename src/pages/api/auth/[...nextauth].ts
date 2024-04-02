@@ -2,12 +2,11 @@ import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
 import { Adapter } from 'next-auth/adapters';
+import prisma from '@/db';
 
 import Google from 'next-auth/providers/google';
 import Naver from 'next-auth/providers/naver';
 import Kakao from 'next-auth/providers/kakao';
-
-const prisma = new PrismaClient();
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
