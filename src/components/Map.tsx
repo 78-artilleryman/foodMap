@@ -2,9 +2,10 @@
 import React from 'react';
 import Script from 'next/script';
 import { Dispatch, SetStateAction } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { locationState, mapState } from '@/atom';
 
 interface MapProps {
-  setMap: Dispatch<SetStateAction<any>>;
   lat?: string | null;
   lng?: string | null;
   zoom?: number;
@@ -16,24 +17,23 @@ declare global {
   }
 }
 
-const DEFAULT_LAT = 37.497625203;
-const DEFAULT_LNG = 127.03088379;
+function Map({ lat, lng, zoom }: MapProps) {
+  const setMap = useSetRecoilState(mapState);
+  const location = useRecoilValue(locationState);
 
-const DEFAULT_ZOOM = 3;
-
-function Map({ setMap, lat, lng, zoom }: MapProps) {
   const loadKakaMap = () => {
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById('map');
       const mapOption = {
-        center: new window.kakao.maps.LatLng(lat ?? DEFAULT_LAT, lng ?? DEFAULT_LNG),
-        level: zoom ?? DEFAULT_ZOOM,
+        center: new window.kakao.maps.LatLng(lat ?? location.lat, lng ?? location.lng),
+        level: zoom ?? location.zoom,
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
 
       setMap(map);
     });
   };
+
   return (
     <>
       <Script

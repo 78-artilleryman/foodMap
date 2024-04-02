@@ -1,13 +1,15 @@
+import { mapState } from '@/atom';
 import { StoreApiResponse, StoreType } from '@/interface';
 import React, { useCallback, useEffect } from 'react';
-import { Dispatch, SetStateAction } from 'react';
+import { useRecoilValue } from 'recoil';
 
 interface MarkersProps {
-  map: any;
   store: StoreType;
 }
 
-function Marker({ map, store }: MarkersProps) {
+function Marker({ store }: MarkersProps) {
+  const map = useRecoilValue(mapState);
+
   const loadKakaoMarker = useCallback(() => {
     if (map && store) {
       //햔제 선택한 식당 데이터 마커 기능
