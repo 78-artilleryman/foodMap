@@ -7,8 +7,10 @@ import Loding from '@/components/Loding';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import Loader from '@/components/Loader';
 import SearchFilter from '@/components/SearchFilter';
+import { useRouter } from 'next/router';
 
 function StoreListPage() {
+  const router = useRouter();
   const [q, setQ] = useState<string | null>(null);
   const [district, setDistrict] = useState<string | null>(null);
 
@@ -81,7 +83,11 @@ function StoreListPage() {
           stores?.pages?.map((page, index) => (
             <React.Fragment key={index}>
               {page.data.map((store: StoreType, i: number) => (
-                <li key={i} className="flex justify-between gap-x-6 py-5">
+                <li
+                  key={i}
+                  className="flex justify-between gap-x-6 py-5 cursor-pointer hover:bg-gray-50"
+                  onClick={() => router.push(`/stores/${store.id}`)}
+                >
                   <div className="flex gap-x-4">
                     <Image
                       src={store?.category ? `/images/markers/${store?.category}.png` : `/images/markers/default.png`}
