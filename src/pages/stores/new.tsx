@@ -1,4 +1,6 @@
+import AdressSearch from '@/components/AdressSearch';
 import { CATEGORY_ARR, FOOD_CERTIFY_ARR, STORE_TYPE_ARR } from '@/data/store';
+import { StoreType } from '@/interface';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
@@ -9,7 +11,8 @@ function StoreNewPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+    setValue,
+  } = useForm<StoreType>();
 
   const router = useRouter();
 
@@ -17,11 +20,8 @@ function StoreNewPage() {
     <form
       className="px-4 md:max-w-4xl mx-auto py-16"
       onSubmit={handleSubmit(async data => {
-        console.log(data);
-
         try {
           const result = await axios.post('/api/stores', data);
-          console.log(result);
 
           if (result.status === 200) {
             //성공 케이스
@@ -94,18 +94,7 @@ function StoreNewPage() {
               </div>
             </div>
             <div className="col-span-full">
-              <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
-                주소 ( 다음 주소 검색 API)
-              </label>
-              <div className="mt-2">
-                <input
-                  {...register('address', { required: true })}
-                  className="outline-none px-2  block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-                {errors.address?.type === 'required' && (
-                  <div className="pt-2 text-xs text-red-600 ">필수 입력사항입니다.</div>
-                )}
-              </div>
+              <AdressSearch setValue={setValue} register={register} errors={errors} />
             </div>
             <div className="sm:col-span-2 sm:col-start-1">
               <label htmlFor="foodCertifyName" className="block text-sm font-medium leading-6 text-gray-900">
@@ -144,7 +133,7 @@ function StoreNewPage() {
                     </option>
                   ))}
                 </select>
-                {errors.storeType?.type === 'required' && (
+                {errors.stroeType?.type === 'required' && (
                   <div className="pt-2 text-xs text-red-600 ">필수 입력사항입니다.</div>
                 )}
               </div>
