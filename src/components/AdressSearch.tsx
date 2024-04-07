@@ -28,6 +28,7 @@ function AdressSearch({ register, errors, setValue }: AdressSearchProps) {
     }
 
     setValue('address', fullAddress);
+    setIsOpen(false);
   };
 
   return (

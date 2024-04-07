@@ -22,6 +22,7 @@ function StoreNewPage() {
       onSubmit={handleSubmit(async data => {
         try {
           const result = await axios.post('/api/stores', data);
+          console.log(result);
 
           if (result.status === 200) {
             //성공 케이스
@@ -142,7 +143,7 @@ function StoreNewPage() {
         </div>
       </div>
       <div className="mt-6 flex items-center justify-end gap-x-6">
-        <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+        <button type="button" className="text-sm font-semibold leading-6 text-gray-900" onClick={() => router.back()}>
           뒤로가기
         </button>
         <button
